@@ -44,6 +44,7 @@ public class UserController {
         user.setId(ids);
         users.put(ids, user);
         ids++;
+        log.info("Пользователь добавлен");
         return user;
     }
 
@@ -65,6 +66,7 @@ public class UserController {
         if (user.getBirthday() != null) {
             users.get(user.getId()).setBirthday(user.getBirthday());
         }
+        log.info(String.format("Пользователь id:%d изменён", user.getId()));
         return user;
     }
 }
