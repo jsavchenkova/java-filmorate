@@ -3,40 +3,45 @@ package ru.yandex.practicum.filmorate.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
-import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
-    Map<Integer, User> users = new HashMap<>();
-    Integer ids = 0;
+    Map<Integer, User> users;
+    Integer ids;
+
+    public UserController() {
+        users = new HashMap<>();
+        ids = 1;
+    }
 
     @GetMapping
-    List<User> getfUsers() {
-        return new ArrayList<>();
+    public List<User> getUsers() {
+        return new ArrayList<>(users.values());
     }
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        if (user.getEmail().isBlank() || !user.getEmail().contains("@")) {
+        if (user.getEmail() == null || user.getEmail().isBlank() || !user.getEmail().contains("@")) {
             String errorMessage = "Электронная почта не должна быть пустой и должна содержать символ @";
             log.error(errorMessage);
             throw new ValidationException(errorMessage);
         }
-        if (user.getLogin().isBlank()) {
+        if (user.getLogin() == null || user.getLogin().isBlank()) {
             String errorMessage = "Логин не должен быть пустым";
             log.error(errorMessage);
             throw new ValidationException(errorMessage);
         }
-        if (user.getName().isBlank()) {
+        if (user.getName() == null || user.getName().isBlank()) {
             log.info("Вместо имени использован логин.");
             user.setName(user.getLogin());
         }
-        if (user.getBirthday().after(new Date())) {
+        if (user.getBirthday().isAfter(LocalDate.now())) {
             String errorMessage = "Дата не может быть больше текущей";
             log.error(errorMessage);
             throw new ValidationException(errorMessage);
@@ -48,9 +53,9 @@ public class UserController {
         return user;
     }
 
-    @PatchMapping
+    @PutMapping
     public User updateUser(@RequestBody User user) {
-        if (user.getBirthday().after(new Date())) {
+        if (user.getBirthday().isAfter(LocalDate.now())) {
             String errorMessage = "Дата не может быть больше текущей ";
             log.error(errorMessage);
         }
