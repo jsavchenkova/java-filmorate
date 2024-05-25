@@ -3,11 +3,13 @@ package ru.yandex.practicum.filmorate.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.util.UserValidate;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -28,15 +30,8 @@ public class UserController {
 
     @PostMapping
     public User createUser(@Valid @RequestBody User user) {
-        if (user.getName() == null || user.getName().isBlank()) {
-            log.info("Вместо имени использован логин.");
-            user.setName(user.getLogin());
-        }
-        if (user.getBirthday().isAfter(LocalDate.now())) {
-            String errorMessage = "Дата не может быть больше текущей";
-            log.error(errorMessage);
-            throw new ValidationException(errorMessage);
-        }
+        UserValidate.nameValidate(user, log);
+        UserValidate.birthdayValidate(user, log);
         user.setId(ids);
         users.put(ids, user);
         ids++;
@@ -46,10 +41,7 @@ public class UserController {
 
     @PutMapping
     public User updateUser(@RequestBody User user) {
-        if (user.getBirthday().isAfter(LocalDate.now())) {
-            String errorMessage = "Дата не может быть больше текущей ";
-            log.error(errorMessage);
-        }
+        UserValidate.birthdayValidate(user, log);
         if (!user.getEmail().isBlank()) {
             users.get(user.getId()).setEmail(user.getEmail());
         }

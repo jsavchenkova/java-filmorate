@@ -29,7 +29,7 @@ public class User {
 
     private String name;
 
-    @DateTimeFormat(pattern = Formatters.dateFormat)
-    @JsonFormat(pattern = Formatters.dateFormat)
+    @DateTimeFormat(pattern = Formatters.DATE_FORMAT)
+    @JsonFormat(pattern = Formatters.DATE_FORMAT)
     private LocalDate birthday;
 }

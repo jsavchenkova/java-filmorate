@@ -2,10 +2,9 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.util.FilmValidate;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,26 +29,8 @@ public class FilmController {
 
     @PostMapping
     public Film createFilm(@RequestBody Film film) {
-        if (film.getName() == null || film.getName().isBlank()) {
-            String messageError = "Название не может быть пустым";
-            log.error(messageError);
-            throw new ValidationException(messageError);
-        }
-        if (film.getDescription() == null || film.getDescription().length() > 200) {
-            String messageError = "Слишком длинное описание. Максимальная длина 200";
-            log.error(messageError);
-            throw new ValidationException(messageError);
-        }
-        if (film.getReleaseDate() != null && film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            String messageError = "Слишком старый фильм";
-            log.error(messageError);
-            throw new ValidationException(messageError);
-        }
-        if (film.getDuration() != null && film.getDuration().isNegative()) {
-            String messageError = "Длительность не может быть отрицательной";
-            log.error(messageError);
-            throw new ValidationException(messageError);
-        }
+        FilmValidate.textValidate(film, log);
+        FilmValidate.timeValidate(film, log);
         film.setId(ids);
         films.put(ids, film);
         ids++;
@@ -59,16 +40,7 @@ public class FilmController {
 
     @PutMapping
     public Film updateFilm(@RequestBody Film film) {
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            String messageError = "Слишком старый фильм";
-            log.error(messageError);
-            throw new ValidationException(messageError);
-        }
-        if (film.getDuration() != null && film.getDuration().isNegative()) {
-            String messageError = "Длительность не может быть отрицательной";
-            log.error(messageError);
-            throw new ValidationException(messageError);
-        }
+        FilmValidate.timeValidate(film, log);
         if (!film.getName().isBlank()) {
             films.get(film.getId()).setName(film.getName());
         }
