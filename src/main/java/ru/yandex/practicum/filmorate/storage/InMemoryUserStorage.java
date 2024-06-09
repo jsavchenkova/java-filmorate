@@ -55,4 +55,18 @@ public class InMemoryUserStorage implements UserStorage {
         log.info(String.format("Пользователь id:%d изменён", user.getId()));
         return user;
     }
+
+    @Override
+    public User getUserById(int id) {
+        return users.get(id);
+    }
+
+    @Override
+    public List<User> getFriends(User user) {
+        return user.getFriends().stream()
+                .map(x -> users.get(x))
+                .toList();
+    }
+
+
 }
