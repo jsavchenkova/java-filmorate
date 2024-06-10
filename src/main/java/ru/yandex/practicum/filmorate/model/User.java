@@ -15,13 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Validated
-//@Builder
+@Builder
 @Data
 public class User {
-    public User() {
-        friends = new HashSet<>();
-    }
-
     private Integer id;
 
     @Email(message = "Электронная почта должна содержать символ @")
@@ -40,4 +36,12 @@ public class User {
     private LocalDate birthday;
 
     private Set<Integer> friends;
+
+    public Set<Integer> getFriends() {
+        if (friends == null) {
+            friends = new HashSet<>();
+        }
+        return friends;
+    }
+
 }

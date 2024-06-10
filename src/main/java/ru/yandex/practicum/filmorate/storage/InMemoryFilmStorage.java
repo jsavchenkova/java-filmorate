@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.storage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.util.FilmValidate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,4 +53,11 @@ public class InMemoryFilmStorage implements FilmStorage {
         log.info(String.format("Фильм id:%d изменён", film.getId()));
         return film;
     }
+
+    @Override
+    public Film getFilmById(int id) {
+        return films.get(id);
+    }
+
+
 }
