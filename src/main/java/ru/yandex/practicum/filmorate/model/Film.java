@@ -12,6 +12,8 @@ import ru.yandex.practicum.filmorate.util.Formatters;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Film.
@@ -29,4 +31,13 @@ public class Film {
     @JsonSerialize(using = DurationSerializer.class)
     @JsonDeserialize(using = DurationDeserializer.class)
     private Duration duration;
+
+    private Set<Integer> likes;
+
+    public Set<Integer> getLikes() {
+        if (likes == null) {
+            likes = new HashSet<>();
+        }
+        return likes;
+    }
 }

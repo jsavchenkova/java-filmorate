@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import ru.yandex.practicum.filmorate.util.Formatters;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Validated
 @Builder
@@ -32,4 +34,14 @@ public class User {
     @DateTimeFormat(pattern = Formatters.DATE_FORMAT)
     @JsonFormat(pattern = Formatters.DATE_FORMAT)
     private LocalDate birthday;
+
+    private Set<Integer> friends;
+
+    public Set<Integer> getFriends() {
+        if (friends == null) {
+            friends = new HashSet<>();
+        }
+        return friends;
+    }
+
 }
