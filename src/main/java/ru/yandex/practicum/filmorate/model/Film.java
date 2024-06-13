@@ -33,6 +33,8 @@ public class Film {
     private Duration duration;
 
     private Set<Integer> likes;
+    private Set<Genre> genres;
+    private Rating rating;
 
     public Set<Integer> getLikes() {
         if (likes == null) {

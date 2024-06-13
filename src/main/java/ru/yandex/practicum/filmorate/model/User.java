@@ -37,6 +37,8 @@ public class User {
 
     private Set<Integer> friends;
 
+    private Set<UserFriend> userFriends;
+
     public Set<Integer> getFriends() {
         if (friends == null) {
             friends = new HashSet<>();
