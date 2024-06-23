@@ -6,7 +6,6 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     defer-datasource-initialization: true
-    open-in-view: true
 logging:
   level:
     org:
