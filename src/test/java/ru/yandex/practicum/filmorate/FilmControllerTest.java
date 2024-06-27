@@ -22,7 +22,7 @@ public class FilmControllerTest {
 
     @BeforeEach
     public void init() {
-        filmController = new FilmController(new FilmService(new InMemoryFilmStorage(), new InMemoryUserStorage()));
+        filmController = new FilmController(new FilmService(new InMemoryFilmStorage()));
         film = Film.builder()
                 .description("Description")
                 .name("Name")

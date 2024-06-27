@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FilmService {
     private final FilmStorage filmStorage;
-    private final UserStorage userStorage;
+ //   private final UserStorage userStorage;
     private Comparator<Film> getLikes;
 
     public List<Film> getfilms() {
@@ -40,10 +40,10 @@ public class FilmService {
         if (film == null) {
             throw new FilmNotFoundException(String.format("Фильм с id =  %d  не найден.", id));
         }
-        User user = userStorage.getUserById(userId);
-        if (user == null) {
-            throw new UserNotFoundException(String.format("Пользователь с id =  %d  не найден.", id));
-        }
+//        User user = userStorage.getUserById(userId);
+//        if (user == null) {
+//            throw new UserNotFoundException(String.format("Пользователь с id =  %d  не найден.", id));
+//        }
         film.getLikes().add(userId);
         return filmStorage.updateFilm(film);
     }
@@ -53,10 +53,10 @@ public class FilmService {
         if (film == null) {
             throw new FilmNotFoundException(String.format("Фильм с id =  %d  не найден.", id));
         }
-        User user = userStorage.getUserById(userId);
-        if (user == null) {
-            throw new UserNotFoundException(String.format("Пользователь с id =  %d  не найден.", id));
-        }
+//        User user = userStorage.getUserById(userId);
+//        if (user == null) {
+//            throw new UserNotFoundException(String.format("Пользователь с id =  %d  не найден.", id));
+//        }
         film.getLikes().remove(userId);
         return filmStorage.updateFilm(film);
     }

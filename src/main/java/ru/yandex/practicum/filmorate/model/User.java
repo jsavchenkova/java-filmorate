@@ -35,11 +35,10 @@ public class User {
     @JsonFormat(pattern = Formatters.DATE_FORMAT)
     private LocalDate birthday;
 
-    private Set<Integer> friends;
+    private Set<User> friends;
 
-    private Set<UserFriend> userFriends;
 
-    public Set<Integer> getFriends() {
+    public Set<User> getFriends() {
         if (friends == null) {
             friends = new HashSet<>();
         }

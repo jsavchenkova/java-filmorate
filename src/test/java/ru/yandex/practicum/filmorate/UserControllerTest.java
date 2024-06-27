@@ -19,7 +19,7 @@ public class UserControllerTest {
 
     @BeforeEach
     public void init() {
-        userController = new UserController(new UserService(new InMemoryUserStorage()));
+        userController = new UserController(new UserService());
         user = User.builder()
                 .email("email@email.ru")
                 .login("login")
