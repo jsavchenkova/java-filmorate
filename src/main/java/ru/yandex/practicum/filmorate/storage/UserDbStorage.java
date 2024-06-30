@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Primary
 @Repository("UserDbStorage")
 @RequiredArgsConstructor
 public class UserDbStorage implements UserStorage {

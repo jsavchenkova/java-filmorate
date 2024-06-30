@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.filmorate.dto.RequestFilmDto;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.util.FilmValidate;
@@ -24,14 +25,16 @@ public class FilmController {
     }
 
     @PostMapping
-    public Film createFilm(@Valid @RequestBody Film film) {
-        FilmValidate.textValidate(film, log);
-        FilmValidate.timeValidate(film, log);
-        return filmService.createFilm(film);
+    public Film createFilm(@Valid @RequestBody RequestFilmDto filmDto) {
+        FilmValidate.textValidate(filmDto, log);
+        FilmValidate.timeValidate(filmDto, log);
+        //  FilmValidate.ratingValidate(filmDto, log);
+
+        return filmService.createFilm(filmDto);
     }
 
     @PutMapping
-    public Film updateFilm(@Valid @RequestBody Film film) {
+    public Film updateFilm(@Valid @RequestBody RequestFilmDto film) {
         FilmValidate.timeValidate(film, log);
         return filmService.updateFilm(film);
     }
