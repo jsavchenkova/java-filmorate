@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.FriendExistsException;
@@ -11,15 +11,14 @@ import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    @Qualifier("UserDbStorage")
-    private UserStorage userStorage;
+
+    @Qualifier("UserDbStorage") @NonNull
+    private final UserStorage userStorage;
 
 
     public List<User> getUsers() {

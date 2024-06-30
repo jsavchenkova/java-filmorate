@@ -27,7 +27,7 @@ public class RequestFilmDto {
     @JsonDeserialize(using = DurationDeserializer.class)
     private Duration duration;
 
-    private List<Integer> genres;
+    private List<GenreDto> genres;
     private MpaDto mpa;
 
 }
