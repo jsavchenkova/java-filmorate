@@ -130,14 +130,14 @@ public class UserDbStorage implements UserStorage {
             params[0] = oldUser.getEmail();
         }
         if (!user.getName().isBlank()) {
-            params[1] = user.getName();
+            params[2] = user.getName();
         } else {
-            params[1] = oldUser.getName();
+            params[2] = oldUser.getName();
         }
         if (!user.getLogin().isBlank()) {
-            params[2] = user.getLogin();
+            params[1] = user.getLogin();
         } else {
-            params[2] = oldUser.getLogin();
+            params[1] = oldUser.getLogin();
         }
         if (user.getBirthday() != null) {
             params[3] = user.getBirthday();

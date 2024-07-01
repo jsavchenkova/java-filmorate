@@ -32,7 +32,7 @@ public class FilmRowMapper implements RowMapper<Film> {
 
             film.setRating(nextR);
         }
-        while (rs.next()) {
+        do {
             if (rs.getInt("genre_id") != 0) {
                 Genre nextG = Genre.builder()
                         .id(rs.getInt("genre_id"))
@@ -42,7 +42,7 @@ public class FilmRowMapper implements RowMapper<Film> {
                 film.getGenres().add(nextG);
             }
 
-        }
+        } while (rs.next());
         return film;
     }
 }
