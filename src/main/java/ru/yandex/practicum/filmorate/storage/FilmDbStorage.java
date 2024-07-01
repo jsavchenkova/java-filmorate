@@ -63,23 +63,8 @@ public class FilmDbStorage implements FilmStorage {
             "LEFT JOIN RATING r ON f.RATING_ID = r.ID \n" +
             "LEFT JOIN FILM_GENRE fg ON f.ID = fg.FILM_ID \n" +
             "LEFT JOIN GENRE g ON fg.GENRE_ID = g.ID " +
-            "WHERE f.id = ?";
+            "WHERE f.id = ? ";
 
-    private static final String GET_FILM_BY_GENRES_QUERY = "SELECT f.ID film_id,\n" +
-            "f.NAME film_name,\n" +
-            "f.DESCRIPTION film_description,\n" +
-            "f.\"RELEASE\" film_release,\n" +
-            "f.DURATION film_duration,\n" +
-            "r.ID rating_id,\n" +
-            "r.NAME  rating_name,\n" +
-            "r.DESCRIPTION rating_description,\n" +
-            "g.ID genre_id,\n" +
-            "g.NAME genre_name\n" +
-            "FROM FILM f \n" +
-            "LEFT JOIN RATING r ON f.RATING_ID = r.ID \n" +
-            "LEFT JOIN FILM_GENRE fg ON f.ID = fg.FILM_ID \n" +
-            "LEFT JOIN GENRE g ON fg.GENRE_ID = g.ID " +
-            "WHERE g.id in(%s)";
 
     private static final String GET_LIKES_QUERY = "SELECT user_id FROM likes WHERE film_id = ?";
     private static final String UPDATE_FILM_QUERY = "UPDATE film SET " +
@@ -170,7 +155,7 @@ public class FilmDbStorage implements FilmStorage {
         if (id != null) {
             film.setId(id);
             for (Genre g : film.getGenres()) {
-                jdbc.update(INSERT_FILM_GENRE_QUERY, film.getId(), g.getId());
+                jdbc.update(INSERT_FILM_GENRE_QUERY, id, g.getId());
             }
 
             return film;
@@ -216,7 +201,7 @@ public class FilmDbStorage implements FilmStorage {
             throw new InternalServerException("Не удалось обновить данные");
         }
         if (film.getGenres() != null && film.getGenres().size() > 0) {
-            jdbc.update(DELETE_GENRES_QUERY, film.getId());
+            //    jdbc.update(DELETE_GENRES_QUERY, film.getId());
             for (Genre g : film.getGenres()) {
                 jdbc.update(INSERT_FILM_GENRE_QUERY, film.getId(), g.getId());
             }
@@ -248,14 +233,5 @@ public class FilmDbStorage implements FilmStorage {
         return jdbc.queryForList(GET_LIKES_QUERY, Integer.class, film_id);
     }
 
-    public List<Film> getFilmByGenres(List<Integer> id) {
-        List<String> idList = id.stream()
-                .map(String::valueOf)
-                .toList();
-        String ids = String.join(", ", idList);
-        String sql = String.format(GET_FILM_BY_GENRES_QUERY, ids);
-
-        return jdbc.query(sql, mapper);
-    }
 
 }

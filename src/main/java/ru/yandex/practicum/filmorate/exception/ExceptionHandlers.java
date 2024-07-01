@@ -22,7 +22,7 @@ public class ExceptionHandlers {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleRatingNotFoundException(final RatingNotFoundException e) {
         return Map.of("error", e.getMessage());
     }
