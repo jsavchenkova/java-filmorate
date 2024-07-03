@@ -25,9 +25,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserDbStorage implements UserStorage {
 
-    private final JdbcTemplate jdbc;
-    private final RowMapper<User> mapper;
-
     private static final String GET_USERS_QUERY = "SELECT u.id user_id, \n" +
             "u.EMAIL user_email, \n" +
             "u.LOGIN user_login, \n" +
@@ -54,6 +51,8 @@ public class UserDbStorage implements UserStorage {
     private static final String INSERT_FRIEND_QUERY = "INSERT INTO user_friend (user_id, friend_id, aproved) VALUES (?, ?, ?)";
     private static final String DELETE_FRIEND_QUERY = "DELETE FROM user_friend WHERE user_id = ? and friend_id = ?";
 
+    private final JdbcTemplate jdbc;
+    private final RowMapper<User> mapper;
 
     @Override
     public List<User> getUsers() {

@@ -18,11 +18,22 @@ import java.util.List;
 public class GenreContorller {
     private final GenreService genreService;
 
+    /**
+     * Получение всех жанров
+     * @return
+     * Возвращает список жанров
+     */
     @GetMapping
     public List<Genre> getGenres() {
         return genreService.getGenres();
     }
 
+    /**
+     * Получение жанра по id
+     * @param id - id жанра
+     * @return
+     * Возвращает жанр
+     */
     @GetMapping("/{id}")
     public Genre getGenreById(@PathVariable int id) {
         return genreService.getGenreById(id);

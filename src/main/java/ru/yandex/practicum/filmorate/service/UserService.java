@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-
-    @Qualifier("UserDbStorage") @NonNull
+    @Qualifier("UserDbStorage")
+    @NonNull
     private final UserStorage userStorage;
 
 
@@ -41,8 +41,6 @@ public class UserService {
         user.setFriends(new HashSet<>(userStorage.getFriends(user)));
         return user;
     }
-
-    ;
 
     public List<User> getFriends(int id) {
         User user = userStorage.getUserById(id);

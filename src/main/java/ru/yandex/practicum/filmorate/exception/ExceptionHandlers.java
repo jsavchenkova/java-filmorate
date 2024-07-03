@@ -39,4 +39,10 @@ public class ExceptionHandlers {
         return Map.of("error", e.getMessage());
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleGenreNotFoundException(final GenreNotFoundException e) {
+        return Map.of("error", e.getMessage());
+    }
+
 }

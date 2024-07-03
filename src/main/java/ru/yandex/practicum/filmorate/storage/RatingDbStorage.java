@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RatingDbStorage {
 
-    private final JdbcTemplate jdbc;
-    private final RowMapper<Rating> mapper;
-
     private static final String GET_RATING_QUERY = "SELECT * FROM rating WHERE id = ?";
     private static final String GET_RATING_LIST_QUERY = "SELECT * FROM rating";
+
+    private final JdbcTemplate jdbc;
+    private final RowMapper<Rating> mapper;
 
     public Rating getRatingById(int id) {
         try {

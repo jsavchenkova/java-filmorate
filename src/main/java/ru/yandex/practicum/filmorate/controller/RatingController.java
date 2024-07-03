@@ -18,11 +18,22 @@ import java.util.List;
 public class RatingController {
     private final RatingService ratingService;
 
+    /**
+     * Получение списка рейтингов
+     * @return
+     * Возвращает список рейтингов
+     */
     @GetMapping
     public List<Rating> getRatingList() {
         return ratingService.getRatingList();
     }
 
+    /**
+     * Получение рейтинга по id
+     * @param id - id рейтинга
+     * @return
+     * Возвращает рейтинг
+     */
     @GetMapping("/{id}")
     public Rating getRatingById(@PathVariable int id) {
         return ratingService.getRatingById(id);

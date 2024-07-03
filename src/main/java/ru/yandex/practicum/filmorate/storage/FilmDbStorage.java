@@ -26,9 +26,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class FilmDbStorage implements FilmStorage {
 
-    private final JdbcTemplate jdbc;
-    private final FilmRowMapper mapper;
-
     private static final String INSERT_FILM_QUERY = "INSERT INTO film (name, description, release, duration, " +
             "rating_id) VALUES (?, ?, ?, ?, ?)";
     private static final String INSERT_FILM_GENRE_QUERY = "INSERT INTO film_genre (film_id, genre_id) " +
@@ -77,6 +74,8 @@ public class FilmDbStorage implements FilmStorage {
     private static final String DELETE_GENRES_QUERY = "DELETE from film_genre WHERE film_id = ?";
     private static final String DELETE_LIKE_QUERY = "DELETE from likes WHERE film_id = ?";
 
+    private final JdbcTemplate jdbc;
+    private final FilmRowMapper mapper;
 
     @Override
     public List<Film> getfilms() {
@@ -232,6 +231,5 @@ public class FilmDbStorage implements FilmStorage {
     private List<Integer> getLikes(Integer film_id) {
         return jdbc.queryForList(GET_LIKES_QUERY, Integer.class, film_id);
     }
-
 
 }

@@ -7,10 +7,3 @@ spring:
     username: sa
     password: password
     driverClassName: org.h2.Driver
-#  jpa:
-#    defer-datasource-initialization: true
-#logging:
-#  level:
-#    org:
-#      zalando:
-#        logbook: TRACE
